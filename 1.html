@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generator CV</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      width: 21cm; /* szerokość kartki A4 */
+      height: 29.7cm; /* wysokość kartki A4 */
+      box-sizing: border-box;
+    }
+    .container {
+      margin: 1cm; /* odstęp od krawędzi strony */
+      padding: 0.5cm;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1cm;
+    }
+    .avatar img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .role {
+      margin-top: 5px;
+      font-size: 18px;
+    }
+    .contact {
+      display: flex;
+      gap: 1cm;
+      margin-bottom: 1cm;
+    }
+    .contact p {
+      margin: 0;
+    }
+    .experience, .education, .skills {
+      margin-bottom: 1cm;
+    }
+    .job {
+      margin-bottom: 1cm;
+    }
+    .job ul {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+    .tag {
+      display: inline-block;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      padding: 2px 8px;
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+    @media print {
+      body {
+        width: 21cm; /* szerokość kartki A4 */
+        height: 29.7cm; /* wysokość kartki A4 */
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        margin: 1cm; /* odstęp od krawędzi strony */
+        padding: 0.5cm;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Dodaj tutaj zawartość CV -->
+  </div>
+</body>
+</html>
