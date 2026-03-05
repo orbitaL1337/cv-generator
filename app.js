@@ -1,5 +1,39 @@
 const $ = (id) => document.getElementById(id);
 
+
+function applyTheme(theme){
+  const mode = theme === "light" ? "light" : "dark";
+  const isLight = mode === "light";
+  document.body.setAttribute("data-theme", mode);
+
+  const icon = $("themeIcon");
+  if(icon) icon.textContent = isLight ? "☀️" : "🌙";
+
+  const toggle = $("themeToggle");
+  if(toggle){
+    toggle.setAttribute("aria-pressed", isLight ? "true" : "false");
+    toggle.setAttribute("aria-label", isLight ? "Przełącz na ciemny motyw" : "Przełącz na jasny motyw");
+    toggle.setAttribute("title", isLight ? "Przełącz na ciemny motyw" : "Przełącz na jasny motyw");
+  }
+
+  window.localStorage.setItem("cv-theme", mode);
+}
+
+function initTheme(){
+  const saved = window.localStorage.getItem("cv-theme");
+  if(saved === "light" || saved === "dark"){
+    applyTheme(saved);
+    return;
+  }
+  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  applyTheme(prefersLight ? "light" : "dark");
+}
+
+function toggleTheme(){
+  const current = document.body.getAttribute("data-theme") || "dark";
+  applyTheme(current === "dark" ? "light" : "dark");
+}
+
 function escapeHtml(str){
   return (str || "").replace(/[&<>"']/g, (m) => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
@@ -167,6 +201,7 @@ function sync(){
 
 // Print
 $("printBtn").addEventListener("click", () => window.print());
+$("themeToggle").addEventListener("click", toggleTheme);
 
 // Upload photo
 $("photoInput").addEventListener("change", (e) => {
@@ -235,6 +270,7 @@ function collectData(){
     education: $("education").value,
     hobbies: $("hobbies").value,
     languages: $("languages").value,
+    theme: document.body.getAttribute("data-theme") || "dark",
     consent: $("consent").value,
     photoDataUrl: window.__photoDataUrl || null,
     version: 1
@@ -244,6 +280,7 @@ function collectData(){
 function applyData(d){
   if(!d) return;
   if(d.template) $("template").value = d.template;
+  if(typeof d.theme === "string") applyTheme(d.theme);
 
   const fields = ["firstName","lastName","role","city","phone","email","linkedin","summary","experience","skills","tools","certs","education","hobbies","languages","consent"];
   for(const k of fields){
@@ -327,4 +364,5 @@ Spedytor – Global Freight Solutions | 2019–2022
 
 // init
 window.__photoDataUrl = null;
+initTheme();
 sync();
