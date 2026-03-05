@@ -20,6 +20,9 @@
       <p>Uzupełnij pola → podgląd po prawej → Drukuj/Zapisz do PDF. Wszystko działa lokalnie.</p>
     </div>
     <div class="actions">
+      <button id="themeToggle" type="button" aria-label="Przełącz na jasny motyw" title="Przełącz na jasny motyw" aria-pressed="false">
+        <span id="themeIcon" aria-hidden="true">🌙</span>
+      </button>
       <button id="loadExample" type="button">Wstaw przykład</button>
       <button id="saveJson" type="button">Zapisz JSON</button>
       <label class="fileBtn" for="loadJson">Wczytaj JSON</label>
@@ -136,6 +139,12 @@ Spedytor – Firma | 2019–2022
         <input id="hobbies" placeholder="np. motoryzacja, geografia, analiza danych" />
       </div>
 
+      <h2>Języki (opcjonalnie)</h2>
+      <div class="field">
+        <label>Języki (oddzielaj przecinkami)</label>
+        <input id="languages" placeholder="np. Polski (C2), Angielski (B2), Niemiecki (A2)" />
+      </div>
+
       <div class="field">
         <label>Klauzula RODO (opcjonalnie)</label>
         <textarea id="consent" placeholder="Wyrażam zgodę na..."></textarea>
@@ -205,6 +214,11 @@ Spedytor – Firma | 2019–2022
             <div class="section card" id="hobbiesCard">
               <h4>Zainteresowania</h4>
               <div class="tags" id="vHobbies"></div>
+            </div>
+
+            <div class="section card" id="languagesCard">
+              <h4>Języki</h4>
+              <div class="tags" id="vLanguages"></div>
             </div>
 
             <div class="section card">
