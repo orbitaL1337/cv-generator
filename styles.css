@@ -6,6 +6,9 @@
   --a4-w: 210mm;
   --a4-h: 297mm;
   --paper: #0b1222;
+  --right-bg: #ffffff;
+  --right-text: #111827;
+  --right-muted: #4b5563;
   --main-ink: #e5e7eb;
   --main-muted: #94a3b8;
   --line-soft: #334155;
@@ -126,8 +129,11 @@ textarea { min-height: 90px; resize: vertical; }
 
 .page[data-theme="light"] {
   --paper: #ffffff;
-  --main-ink: #1f2937;
-  --main-muted: #6b7280;
+  --right-bg: #ffffff;
+  --right-text: #111827;
+  --right-muted: #4b5563;
+  --main-ink: #111827;
+  --main-muted: #4b5563;
   --line-soft: #d1d5db;
   --sidebar-solid: #3b4256;
   --accent: #7c3aed;
@@ -137,8 +143,11 @@ textarea { min-height: 90px; resize: vertical; }
 
 .page[data-theme="dark"] {
   --paper: #0b1222;
-  --main-ink: #e5e7eb;
-  --main-muted: #94a3b8;
+  --right-bg: #ffffff;
+  --right-text: #111827;
+  --right-muted: #4b5563;
+  --main-ink: #111827;
+  --main-muted: #4b5563;
   --line-soft: #334155;
   --sidebar-solid: #111827;
   --accent: #22d3ee;
@@ -194,7 +203,7 @@ textarea { min-height: 90px; resize: vertical; }
 .edu .name { font-weight: 700; }
 .edu .meta { opacity: .85; }
 
-.main { padding: 14mm 14mm 12mm; display: flex; flex-direction: column; gap: 10mm; transform: translateY(var(--right-offset)); }
+.main { padding: 14mm 14mm 12mm; display: flex; flex-direction: column; gap: 10mm; transform: translateY(var(--right-offset)); background: var(--right-bg); }
 .main { color: var(--main-ink); }
 .hero .first { margin: 0; font-size: 2.6em; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; }
 .hero .last { margin: 2mm 0 0; font-size: 2.8em; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
@@ -232,9 +241,10 @@ textarea { min-height: 90px; resize: vertical; }
 
 @media print {
   @page { size: A4; margin: 0; }
-  body { background: #fff; }
+  body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .topbar, .editor { display: none !important; }
   .layout { display: block; padding: 0; }
   .preview-wrap { padding: 0; overflow: visible; }
   .page { box-shadow: none; width: 210mm; height: 297mm; }
+  .page, .page * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }

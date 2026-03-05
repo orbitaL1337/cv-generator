@@ -3,7 +3,7 @@ const $ = (id) => document.getElementById(id);
 const fields = [
   "firstName", "lastName", "role", "phone", "email", "address", "portfolio",
   "summary", "skills", "education", "jobs", "rodo", "fontFamily", "fontSize", "lineHeight", "leftOffset", "rightOffset",
-  "sidebarColor", "accentColor", "rodoBgColor", "rodoTextColor",
+  "sidebarColor", "accentColor", "rightBgColor", "rightTextColor", "rodoBgColor", "rodoTextColor",
   "photoPosX", "photoPosY",
   "optPhoto", "optIcons", "optPortfolio", "optSkills", "optEducation", "optSummary", "optRodo"
 ];
@@ -97,6 +97,11 @@ function sync() {
 
   document.documentElement.style.setProperty("--sidebar-solid", $("sidebarColor").value);
   document.documentElement.style.setProperty("--accent", $("accentColor").value);
+  document.documentElement.style.setProperty("--right-bg", $("rightBgColor").value);
+  document.documentElement.style.setProperty("--right-text", $("rightTextColor").value);
+  document.documentElement.style.setProperty("--main-ink", $("rightTextColor").value);
+  document.documentElement.style.setProperty("--right-muted", "#4b5563");
+  document.documentElement.style.setProperty("--main-muted", "#4b5563");
   document.documentElement.style.setProperty("--rodo-bg", $("rodoBgColor").value);
   document.documentElement.style.setProperty("--rodo-text", $("rodoTextColor").value);
 
@@ -142,7 +147,8 @@ $("removePhoto").addEventListener("click", () => {
 });
 
 function printCv() {
-  window.print();
+  sync();
+  requestAnimationFrame(() => window.print());
 }
 
 function applyTheme(themeName) {
@@ -154,11 +160,15 @@ function applyTheme(themeName) {
   if (isLight) {
     $("sidebarColor").value = "#3b4256";
     $("accentColor").value = "#7c3aed";
+    $("rightBgColor").value = "#ffffff";
+    $("rightTextColor").value = "#111827";
     $("rodoBgColor").value = "#3a3a3a";
     $("rodoTextColor").value = "#ffffff";
   } else {
     $("sidebarColor").value = "#111827";
     $("accentColor").value = "#22d3ee";
+    $("rightBgColor").value = "#ffffff";
+    $("rightTextColor").value = "#111827";
     $("rodoBgColor").value = "#111827";
     $("rodoTextColor").value = "#f8fafc";
   }
