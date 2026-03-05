@@ -102,9 +102,9 @@ function fitToPage(){
   // reset to base
   cv.style.fontSize = "";
   note.textContent = "";
-  // a4 printable height approximation in px depends on zoom; use a safe threshold
-  // We aim to keep within ~1120px content height (after padding).
-  const MAX = 1120;
+
+  // Keep content within exact A4 container height.
+  const MAX = cv.clientHeight;
 
   let size = parseFloat(getComputedStyle(cv).fontSize);
   let loops = 0;
@@ -116,7 +116,7 @@ function fitToPage(){
   }
 
   if(loops > 0){
-    note.textContent = "Dopasowano rozmiar tekstu, aby zmieścić CV na 1 stronie.";
+    note.textContent = "Dopasowano rozmiar tekstu, aby zmieścić CV na 1 stronie A4.";
   }
 }
 
@@ -147,9 +147,11 @@ function sync(){
   const skillsCount = renderTags("skills", "vSkills");
   const toolsCount  = renderTags("tools", "vTools");
   const hobbyCount  = renderTags("hobbies", "vHobbies");
+  const languagesCount = renderTags("languages", "vLanguages");
 
   $("toolsCard").style.display = toolsCount ? "block" : "none";
   $("hobbiesCard").style.display = hobbyCount ? "block" : "none";
+  $("languagesCard").style.display = languagesCount ? "block" : "none";
 
   const certCount = renderListTextarea("certs", "vCerts");
   $("certsCard").style.display = certCount ? "block" : "none";
@@ -232,6 +234,7 @@ function collectData(){
     certs: $("certs").value,
     education: $("education").value,
     hobbies: $("hobbies").value,
+    languages: $("languages").value,
     consent: $("consent").value,
     photoDataUrl: window.__photoDataUrl || null,
     version: 1
@@ -242,7 +245,7 @@ function applyData(d){
   if(!d) return;
   if(d.template) $("template").value = d.template;
 
-  const fields = ["firstName","lastName","role","city","phone","email","linkedin","summary","experience","skills","tools","certs","education","hobbies","consent"];
+  const fields = ["firstName","lastName","role","city","phone","email","linkedin","summary","experience","skills","tools","certs","education","hobbies","languages","consent"];
   for(const k of fields){
     if(typeof d[k] === "string") $(k).value = d[k];
   }
@@ -310,6 +313,7 @@ Spedytor – Global Freight Solutions | 2019–2022
     certs: "Incoterms 2020 – szkolenie, 2024\nKurs: Excel w logistyce (online), 2023",
     education: "Uniwersytet Ekonomiczny w Krakowie – Logistyka (licencjat), 2019\nTechnikum logistyczne – Technik logistyk, 2016",
     hobbies: "motoryzacja, geografia, analiza danych",
+    languages: "Polski (ojczysty), Angielski (B2)",
     consent: "Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb rekrutacji zgodnie z obowiązującymi przepisami prawa.",
     photoDataUrl: null
   });
@@ -318,7 +322,7 @@ Spedytor – Global Freight Solutions | 2019–2022
 // Live binding
 [
   "firstName","lastName","role","city","phone","email","linkedin",
-  "summary","experience","skills","tools","certs","education","hobbies","consent"
+  "summary","experience","skills","tools","certs","education","hobbies","languages","consent"
 ].forEach(id => $(id).addEventListener("input", sync));
 
 // init
