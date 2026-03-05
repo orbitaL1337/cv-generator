@@ -6,11 +6,14 @@
 3. Uzupełnij pola po lewej – podgląd aktualizuje się automatycznie.
 
 ## Funkcje
-- 3 szablony: LinkedIn / Minimalist / Manager
+- 4 szablony: LinkedIn / Minimalist / Manager / Classic Sidebar
+- Sekcja „Języki” (tagi, opcjonalna)
 - Wgrywanie zdjęcia (upload) + przeciągnij i upuść (drag & drop)
 - Zapis i wczytanie danych CV w pliku JSON
 - Drukowanie / zapis do PDF
-- Automatyczne dopasowanie tekstu, żeby CV zmieściło się na 1 stronie (w granicach rozsądku)
+- Przełącznik motywu jasny/ciemny (z zapamiętywaniem wyboru)
+- Stały format A4 w podglądzie i wydruku
+- Automatyczne dopasowanie tekstu, żeby CV zmieściło się na 1 stronie A4 (w granicach rozsądku)
 
 ## Wskazówka PDF
 W oknie drukowania wybierz:

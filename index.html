@@ -20,6 +20,9 @@
       <p>Uzupełnij pola → podgląd po prawej → Drukuj/Zapisz do PDF. Wszystko działa lokalnie.</p>
     </div>
     <div class="actions">
+      <button id="themeToggle" type="button" aria-label="Przełącz na jasny motyw" title="Przełącz na jasny motyw" aria-pressed="false">
+        <span id="themeIcon" aria-hidden="true">🌙</span>
+      </button>
       <button id="loadExample" type="button">Wstaw przykład</button>
       <button id="saveJson" type="button">Zapisz JSON</button>
       <label class="fileBtn" for="loadJson">Wczytaj JSON</label>
@@ -37,6 +40,7 @@
           <option value="linkedin">LinkedIn style</option>
           <option value="minimal">Minimalist</option>
           <option value="manager">Manager / Premium</option>
+          <option value="classic">Classic Sidebar</option>
         </select>
       </div>
 
@@ -136,6 +140,12 @@ Spedytor – Firma | 2019–2022
         <input id="hobbies" placeholder="np. motoryzacja, geografia, analiza danych" />
       </div>
 
+      <h2>Języki (opcjonalnie)</h2>
+      <div class="field">
+        <label>Języki (oddzielaj przecinkami)</label>
+        <input id="languages" placeholder="np. Polski (C2), Angielski (B2), Niemiecki (A2)" />
+      </div>
+
       <div class="field">
         <label>Klauzula RODO (opcjonalnie)</label>
         <textarea id="consent" placeholder="Wyrażam zgodę na..."></textarea>
@@ -149,7 +159,7 @@ Spedytor – Firma | 2019–2022
     <main class="preview" id="dropZone" aria-label="Podgląd CV (możesz tu upuścić zdjęcie)">
       <div class="cv linkedin" id="cvRoot">
         <div class="cv-header">
-          <div class="left-head">
+          <div class="left-head" id="leftHead">
             <div class="avatar" id="avatar">
               <span id="avatarFallback">AA</span>
               <img id="avatarImg" alt="Zdjęcie" style="display:none;">
@@ -169,13 +179,13 @@ Spedytor – Firma | 2019–2022
         </div>
 
         <div class="two-col">
-          <div>
-            <div class="section card">
+          <div id="mainCol">
+            <div class="section card" id="profileCard">
               <h4>Profil</h4>
               <p id="vSummary"></p>
             </div>
 
-            <div class="section card">
+            <div class="section card" id="experienceCard">
               <h4>Doświadczenie</h4>
               <div id="vExperience"></div>
             </div>
@@ -185,13 +195,13 @@ Spedytor – Firma | 2019–2022
               <div id="vCerts"></div>
             </div>
 
-            <div class="section card">
+            <div class="section card" id="educationCard">
               <h4>Wykształcenie</h4>
               <div id="vEducation"></div>
             </div>
           </div>
 
-          <div>
+          <div id="sideCol">
             <div class="section card">
               <h4>Umiejętności</h4>
               <div class="tags" id="vSkills"></div>
@@ -207,8 +217,13 @@ Spedytor – Firma | 2019–2022
               <div class="tags" id="vHobbies"></div>
             </div>
 
-            <div class="section card">
-              <h4>Dane</h4>
+            <div class="section card" id="languagesCard">
+              <h4>Języki</h4>
+              <div class="tags" id="vLanguages"></div>
+            </div>
+
+            <div class="section card" id="dataCard">
+              <h4>Kontakt</h4>
               <p class="mono">
                 <span id="vCity"></span><br>
                 <span id="vPhone"></span>

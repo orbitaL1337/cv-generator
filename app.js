@@ -1,5 +1,39 @@
 const $ = (id) => document.getElementById(id);
 
+
+function applyTheme(theme){
+  const mode = theme === "light" ? "light" : "dark";
+  const isLight = mode === "light";
+  document.body.setAttribute("data-theme", mode);
+
+  const icon = $("themeIcon");
+  if(icon) icon.textContent = isLight ? "☀️" : "🌙";
+
+  const toggle = $("themeToggle");
+  if(toggle){
+    toggle.setAttribute("aria-pressed", isLight ? "true" : "false");
+    toggle.setAttribute("aria-label", isLight ? "Przełącz na ciemny motyw" : "Przełącz na jasny motyw");
+    toggle.setAttribute("title", isLight ? "Przełącz na ciemny motyw" : "Przełącz na jasny motyw");
+  }
+
+  window.localStorage.setItem("cv-theme", mode);
+}
+
+function initTheme(){
+  const saved = window.localStorage.getItem("cv-theme");
+  if(saved === "light" || saved === "dark"){
+    applyTheme(saved);
+    return;
+  }
+  const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+  applyTheme(prefersLight ? "light" : "dark");
+}
+
+function toggleTheme(){
+  const current = document.body.getAttribute("data-theme") || "dark";
+  applyTheme(current === "dark" ? "light" : "dark");
+}
+
 function escapeHtml(str){
   return (str || "").replace(/[&<>"']/g, (m) => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
@@ -85,11 +119,42 @@ function setPhoto(dataUrl){
   }
 }
 
+function arrangeTemplateLayout(template){
+  const mainCol = $("mainCol");
+  const sideCol = $("sideCol");
+  const leftHead = $("leftHead");
+  const avatar = $("avatar");
+  const educationCard = $("educationCard");
+  const certsCard = $("certsCard");
+
+  if(template === "classic"){
+    if(avatar && avatar.parentElement !== sideCol){
+      sideCol.prepend(avatar);
+    }
+    if(educationCard && educationCard.parentElement !== sideCol){
+      sideCol.appendChild(educationCard);
+    }
+    return;
+  }
+
+  if(avatar && avatar.parentElement !== leftHead){
+    leftHead.insertBefore(avatar, leftHead.firstChild);
+  }
+  if(educationCard && educationCard.parentElement !== mainCol){
+    if(certsCard && certsCard.parentElement === mainCol){
+      mainCol.insertBefore(educationCard, certsCard.nextSibling);
+    }else{
+      mainCol.appendChild(educationCard);
+    }
+  }
+}
+
 function applyTemplate(){
   const cv = $("cvRoot");
   const v = $("template").value || "linkedin";
-  cv.classList.remove("linkedin","minimal","manager");
+  cv.classList.remove("linkedin","minimal","manager","classic");
   cv.classList.add(v);
+  arrangeTemplateLayout(v);
 }
 
 /**
@@ -102,9 +167,9 @@ function fitToPage(){
   // reset to base
   cv.style.fontSize = "";
   note.textContent = "";
-  // a4 printable height approximation in px depends on zoom; use a safe threshold
-  // We aim to keep within ~1120px content height (after padding).
-  const MAX = 1120;
+
+  // Keep content within exact A4 container height.
+  const MAX = cv.clientHeight;
 
   let size = parseFloat(getComputedStyle(cv).fontSize);
   let loops = 0;
@@ -116,7 +181,7 @@ function fitToPage(){
   }
 
   if(loops > 0){
-    note.textContent = "Dopasowano rozmiar tekstu, aby zmieścić CV na 1 stronie.";
+    note.textContent = "Dopasowano rozmiar tekstu, aby zmieścić CV na 1 stronie A4.";
   }
 }
 
@@ -147,9 +212,11 @@ function sync(){
   const skillsCount = renderTags("skills", "vSkills");
   const toolsCount  = renderTags("tools", "vTools");
   const hobbyCount  = renderTags("hobbies", "vHobbies");
+  const languagesCount = renderTags("languages", "vLanguages");
 
   $("toolsCard").style.display = toolsCount ? "block" : "none";
   $("hobbiesCard").style.display = hobbyCount ? "block" : "none";
+  $("languagesCard").style.display = languagesCount ? "block" : "none";
 
   const certCount = renderListTextarea("certs", "vCerts");
   $("certsCard").style.display = certCount ? "block" : "none";
@@ -165,6 +232,7 @@ function sync(){
 
 // Print
 $("printBtn").addEventListener("click", () => window.print());
+$("themeToggle").addEventListener("click", toggleTheme);
 
 // Upload photo
 $("photoInput").addEventListener("change", (e) => {
@@ -232,6 +300,8 @@ function collectData(){
     certs: $("certs").value,
     education: $("education").value,
     hobbies: $("hobbies").value,
+    languages: $("languages").value,
+    theme: document.body.getAttribute("data-theme") || "dark",
     consent: $("consent").value,
     photoDataUrl: window.__photoDataUrl || null,
     version: 1
@@ -241,8 +311,9 @@ function collectData(){
 function applyData(d){
   if(!d) return;
   if(d.template) $("template").value = d.template;
+  if(typeof d.theme === "string") applyTheme(d.theme);
 
-  const fields = ["firstName","lastName","role","city","phone","email","linkedin","summary","experience","skills","tools","certs","education","hobbies","consent"];
+  const fields = ["firstName","lastName","role","city","phone","email","linkedin","summary","experience","skills","tools","certs","education","hobbies","languages","consent"];
   for(const k of fields){
     if(typeof d[k] === "string") $(k).value = d[k];
   }
@@ -310,6 +381,7 @@ Spedytor – Global Freight Solutions | 2019–2022
     certs: "Incoterms 2020 – szkolenie, 2024\nKurs: Excel w logistyce (online), 2023",
     education: "Uniwersytet Ekonomiczny w Krakowie – Logistyka (licencjat), 2019\nTechnikum logistyczne – Technik logistyk, 2016",
     hobbies: "motoryzacja, geografia, analiza danych",
+    languages: "Polski (ojczysty), Angielski (B2)",
     consent: "Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb rekrutacji zgodnie z obowiązującymi przepisami prawa.",
     photoDataUrl: null
   });
@@ -318,9 +390,10 @@ Spedytor – Global Freight Solutions | 2019–2022
 // Live binding
 [
   "firstName","lastName","role","city","phone","email","linkedin",
-  "summary","experience","skills","tools","certs","education","hobbies","consent"
+  "summary","experience","skills","tools","certs","education","hobbies","languages","consent"
 ].forEach(id => $(id).addEventListener("input", sync));
 
 // init
 window.__photoDataUrl = null;
+initTheme();
 sync();
