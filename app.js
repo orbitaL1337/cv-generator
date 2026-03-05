@@ -2,10 +2,10 @@ const $ = (id) => document.getElementById(id);
 
 const fields = [
   "firstName", "lastName", "role", "phone", "email", "address", "portfolio",
-  "summary", "skills", "education", "jobs", "rodo", "fontFamily", "fontSize", "lineHeight", "leftOffset", "rightOffset",
-  "sidebarColor", "accentColor", "rightBgColor", "rightTextColor", "rodoBgColor", "rodoTextColor",
+  "summary", "skills", "education", "jobs", "fontFamily", "fontSize", "lineHeight", "leftOffset", "rightOffset",
+  "sidebarColor",
   "photoPosX", "photoPosY",
-  "optPhoto", "optIcons", "optPortfolio", "optSkills", "optEducation", "optSummary", "optRodo"
+  "optPhoto", "optIcons", "optPortfolio", "optSkills", "optEducation", "optSummary"
 ];
 
 function escapeHtml(value) {
@@ -78,8 +78,6 @@ function sync() {
   $("vSkills").innerHTML = renderSkills($("skills").value);
   $("vEducation").innerHTML = renderEducation($("education").value);
   $("vJobs").innerHTML = renderJobs($("jobs").value);
-  $("vRodo").textContent = $("rodo").value.trim();
-
   const family = $("fontFamily").value;
   const size = $("fontSize").value;
   const lineHeight = $("lineHeight").value;
@@ -96,14 +94,11 @@ function sync() {
   $("rightOffsetValue").textContent = `${rightOffset}px`;
 
   document.documentElement.style.setProperty("--sidebar-solid", $("sidebarColor").value);
-  document.documentElement.style.setProperty("--accent", $("accentColor").value);
-  document.documentElement.style.setProperty("--right-bg", $("rightBgColor").value);
-  document.documentElement.style.setProperty("--right-text", $("rightTextColor").value);
-  document.documentElement.style.setProperty("--main-ink", $("rightTextColor").value);
+  document.documentElement.style.setProperty("--right-bg", "#ffffff");
+  document.documentElement.style.setProperty("--right-text", "#111827");
+  document.documentElement.style.setProperty("--main-ink", "#111827");
   document.documentElement.style.setProperty("--right-muted", "#4b5563");
   document.documentElement.style.setProperty("--main-muted", "#4b5563");
-  document.documentElement.style.setProperty("--rodo-bg", $("rodoBgColor").value);
-  document.documentElement.style.setProperty("--rodo-text", $("rodoTextColor").value);
 
   const posX = $("photoPosX").value;
   const posY = $("photoPosY").value;
@@ -120,7 +115,6 @@ function sync() {
   toggleElement("skillsSection", $("optSkills").checked);
   toggleElement("educationSection", $("optEducation").checked);
   toggleElement("summarySection", $("optSummary").checked);
-  toggleElement("vRodo", $("optRodo").checked);
 }
 
 fields.forEach((id) => {
@@ -159,18 +153,8 @@ function applyTheme(themeName) {
 
   if (isLight) {
     $("sidebarColor").value = "#3b4256";
-    $("accentColor").value = "#7c3aed";
-    $("rightBgColor").value = "#ffffff";
-    $("rightTextColor").value = "#111827";
-    $("rodoBgColor").value = "#3a3a3a";
-    $("rodoTextColor").value = "#ffffff";
   } else {
     $("sidebarColor").value = "#111827";
-    $("accentColor").value = "#22d3ee";
-    $("rightBgColor").value = "#ffffff";
-    $("rightTextColor").value = "#111827";
-    $("rodoBgColor").value = "#111827";
-    $("rodoTextColor").value = "#f8fafc";
   }
 
   $("themeDarkBtn").classList.toggle("active", !isLight);
