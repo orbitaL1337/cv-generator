@@ -10,14 +10,26 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
+  <svg aria-hidden="true" class="sprite-defs" width="0" height="0" style="position:absolute;left:-9999px;overflow:hidden">
+    <symbol id="i-sun" viewBox="0 0 24 24"><path d="M12 4.5V2m0 20v-2.5M6.7 6.7 5 5m14 14-1.7-1.7M4.5 12H2m20 0h-2.5M6.7 17.3 5 19m14-14-1.7 1.7M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.2 14.8A8.5 8.5 0 1 1 9.2 3.8a7 7 0 1 0 11 11Z"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 2h3.1l1.2 4.8-2 2a15.3 15.3 0 0 0 6.3 6.3l2-2L22 14.3v3.1a2 2 0 0 1-2 2A18 18 0 0 1 4.5 4a2 2 0 0 1 2-2Z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><path d="M3 5h18v14H3V5Zm9 7L3 6.5h18L12 12Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 10a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm7.9 9h-3.2a16 16 0 0 0-1.5-5A8 8 0 0 1 19.9 11ZM12 4c1 1.2 2 3.7 2.5 7H9.5C10 7.7 11 5.2 12 4ZM8.8 6a16 16 0 0 0-1.5 5H4.1a8 8 0 0 1 4.7-5ZM4.1 13h3.2a16 16 0 0 0 1.5 5 8 8 0 0 1-4.7-5Zm5.4 0h5c-.5 3.3-1.5 5.8-2.5 7-1-1.2-2-3.7-2.5-7Zm5.7 5a16 16 0 0 0 1.5-5h3.2a8 8 0 0 1-4.7 5Z"/></symbol>
+  </svg>
+
   <header class="topbar">
     <div>
       <h1>Mini Generator CV</h1>
       <p>Edytuj treść na żywo, wybierz czcionkę, rozmiar, interlinię, kolory i zdjęcie.</p>
     </div>
     <div class="topbar-actions">
-      <button id="themeDarkBtn" type="button">Motyw ciemny</button>
-      <button id="themeLightBtn" type="button">Motyw jasny</button>
+      <button id="themeDarkBtn" class="icon-btn" type="button" title="Motyw ciemny" aria-label="Motyw ciemny"><svg class="fi"><use href="#i-moon"/></svg></button>
+      <button id="themeLightBtn" class="icon-btn" type="button" title="Motyw jasny" aria-label="Motyw jasny"><svg class="fi"><use href="#i-sun"/></svg></button>
+      <button id="themePreset1" class="preset-btn" type="button">Motyw 1</button>
+      <button id="themePreset2" class="preset-btn" type="button">Motyw 2</button>
+      <button id="themePreset3" class="preset-btn" type="button">Motyw 3</button>
       <button id="printBtn" type="button">Drukuj</button>
       <button id="pdfBtn" type="button">Eksport PDF</button>
     </div>
@@ -134,10 +146,10 @@ Wkład w cele zespołu i organizacji.</textarea></div>
                 <h3 class="side-section-title">Kontakt</h3>
                 <div class="side-rule"></div>
                 <div class="contact">
-                  <div><div class="k"><span class="icon" data-icon>📞</span>Telefon</div><div class="v" id="vPhone"></div></div>
-                  <div><div class="k"><span class="icon" data-icon>✉️</span>E-mail</div><div class="v" id="vEmail"></div></div>
-                  <div><div class="k"><span class="icon" data-icon>📍</span>Adres</div><div class="v" id="vAddress"></div></div>
-                  <div id="portfolioRow"><div class="k"><span class="icon" data-icon>🌐</span>Portfolio</div><div class="v" id="vPortfolio"></div></div>
+                  <div><div class="k"><span class="icon" data-icon><svg class="fi"><use href="#i-phone"/></svg></span>Telefon</div><div class="v" id="vPhone"></div></div>
+                  <div><div class="k"><span class="icon" data-icon><svg class="fi"><use href="#i-mail"/></svg></span>E-mail</div><div class="v" id="vEmail"></div></div>
+                  <div><div class="k"><span class="icon" data-icon><svg class="fi"><use href="#i-pin"/></svg></span>Adres</div><div class="v" id="vAddress"></div></div>
+                  <div id="portfolioRow"><div class="k"><span class="icon" data-icon><svg class="fi"><use href="#i-web"/></svg></span>Portfolio</div><div class="v" id="vPortfolio"></div></div>
                 </div>
               </section>
 

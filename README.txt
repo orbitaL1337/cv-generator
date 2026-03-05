@@ -10,16 +10,17 @@ Funkcje:
 - live edycja treści CV
 - wybór czcionki, rozmiaru bazowego i interlinii (wysokości tekstu)
 - 2 suwaki przesuwania tekstu góra/dół (osobno sekcja lewa i prawa)
-- przełączanie motywu szablonu: ciemny (domyślny) / jasny
+- przyciski motywu z flat icons (księżyc / słońce)
+- przyciski wyboru motywu 1 / 2 / 3
+- prostokątne (ostre) ikony kontaktu z efektem hover
 - edycja koloru panelu bocznego
 - prawa sekcja CV zawsze: białe tło + czarny tekst
 - upload zdjęcia + usuwanie zdjęcia
 - pozycjonowanie zdjęcia (poziomo/pionowo) suwakami
-- responsywne skalowanie zdjęcia w podglądzie
 - przyciski Drukuj i Eksport PDF (A4)
-- poprawione drukowanie/PDF z lepszym odwzorowaniem kolorów i ustawień
 - opcjonalne ikony przy telefonie, e-mailu i adresie
 - Portfolio zamiast LinkedIn
 - opcje z checkboxami (ptaszkami) do pokazywania/ukrywania sekcji
 - stała, nieedytowalna klauzula RODO w treści CV
+- podgląd CV jest sticky na desktopie (zawsze widoczny przy przewijaniu)
 - responsywny układ (desktop + mobile)

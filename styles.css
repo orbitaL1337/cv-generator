@@ -55,15 +55,41 @@ body[data-ui-theme="light"] {
   border: 1px solid #d1d5db;
   background: #0b1222;
   color: #e2e8f0;
-  border-radius: 10px;
+  border-radius: 0;
   padding: 10px 12px;
   cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 .topbar-actions button.active {
   background: #111827;
   color: #ffffff;
   border-color: transparent;
   font-weight: 700;
+}
+.topbar-actions button:hover,
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(2, 6, 23, .25);
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+}
+
+.preset-btn { font-weight: 600; }
+
+.fi {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
 }
 
 body[data-ui-theme="light"] .topbar-actions button,
@@ -112,6 +138,11 @@ input[type="color"] { padding: 3px; min-height: 40px; }
 textarea { min-height: 90px; resize: vertical; }
 
 .preview-wrap { overflow: auto; padding: 10px; }
+.preview-wrap {
+  position: sticky;
+  top: 10px;
+  max-height: calc(100vh - 20px);
+}
 .page {
   width: var(--a4-w);
   height: var(--a4-h);
@@ -187,7 +218,21 @@ textarea { min-height: 90px; resize: vertical; }
 .side-rule { height: 1px; background: rgba(255,255,255,.2); margin-bottom: 4mm; }
 .contact { display: grid; gap: 3.5mm; font-size: .9em; }
 .contact .k { font-weight: 700; display: flex; align-items: center; gap: 6px; }
-.contact .icon { width: 1.2em; text-align: center; }
+.contact .icon {
+  width: 1.35em;
+  height: 1.35em;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 0;
+  background: rgba(255,255,255,.08);
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.contact .k:hover .icon {
+  background: rgba(255,255,255,.2);
+  border-color: rgba(255,255,255,.45);
+  transform: translateX(1px);
+}
 .contact .v { opacity: .88; word-break: break-word; }
 .skills { margin: 0; padding-left: 18px; display: grid; gap: 2mm; font-size: .9em; }
 .edu { display: grid; gap: 4mm; font-size: .9em; line-height: 1.35; }
@@ -214,7 +259,7 @@ textarea { min-height: 90px; resize: vertical; }
 
 @media (max-width: 1200px) {
   .layout { grid-template-columns: 1fr; }
-  .preview-wrap { padding: 0; }
+  .preview-wrap { padding: 0; position: static; max-height: none; }
   .page { width: 100%; height: auto; min-height: 100vh; padding-bottom: 80px; border-radius: 0; }
   .cv { height: auto; grid-template-columns: 1fr; }
   .photo { height: clamp(220px, 45vw, 360px); }

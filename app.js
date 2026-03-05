@@ -145,6 +145,23 @@ function printCv() {
   requestAnimationFrame(() => window.print());
 }
 
+const themePresets = {
+  1: { sidebar: "#111827", accent: "#111827" },
+  2: { sidebar: "#0f766e", accent: "#0f766e" },
+  3: { sidebar: "#7c2d12", accent: "#7c2d12" }
+};
+
+function applyPreset(presetId) {
+  const preset = themePresets[presetId] || themePresets[1];
+  $("sidebarColor").value = preset.sidebar;
+  document.documentElement.style.setProperty("--accent", preset.accent);
+
+  ["themePreset1", "themePreset2", "themePreset3"].forEach((id, idx) => {
+    $(id).classList.toggle("active", idx + 1 === presetId);
+  });
+  sync();
+}
+
 function applyTheme(themeName) {
   const isLight = themeName === "light";
   const page = $("cvPage");
@@ -159,6 +176,7 @@ function applyTheme(themeName) {
 
   $("themeDarkBtn").classList.toggle("active", !isLight);
   $("themeLightBtn").classList.toggle("active", isLight);
+  applyPreset(1);
   sync();
 }
 
@@ -166,5 +184,8 @@ $("printBtn").addEventListener("click", printCv);
 $("pdfBtn").addEventListener("click", printCv);
 $("themeDarkBtn").addEventListener("click", () => applyTheme("dark"));
 $("themeLightBtn").addEventListener("click", () => applyTheme("light"));
+$("themePreset1").addEventListener("click", () => applyPreset(1));
+$("themePreset2").addEventListener("click", () => applyPreset(2));
+$("themePreset3").addEventListener("click", () => applyPreset(3));
 
 applyTheme("dark");
