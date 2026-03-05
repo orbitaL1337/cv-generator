@@ -1,10 +1,11 @@
 const $ = (id) => document.getElementById(id);
 
 const fields = [
-  "firstName", "lastName", "role", "phone", "email", "address", "linkedin",
-  "summary", "skills", "education", "jobs", "rodo", "fontFamily", "fontSize",
+  "firstName", "lastName", "role", "phone", "email", "address", "portfolio",
+  "summary", "skills", "education", "jobs", "rodo", "fontFamily", "fontSize", "lineHeight",
   "sidebarColor", "accentColor", "rodoBgColor", "rodoTextColor",
-  "optPhoto", "optLinkedin", "optSkills", "optEducation", "optSummary", "optRodo"
+  "photoPosX", "photoPosY",
+  "optPhoto", "optIcons", "optPortfolio", "optSkills", "optEducation", "optSummary", "optRodo"
 ];
 
 function escapeHtml(value) {
@@ -41,13 +42,7 @@ function renderJobs(raw) {
     const [position, ...metaParts] = (header || "").split("—").map((p) => p.trim());
     const meta = metaParts.join(" — ");
 
-    return `
-      <article class="job">
-        <p class="pos">${escapeHtml(position || "Stanowisko")}</p>
-        <div class="meta">${escapeHtml(meta || "Firma | Daty")}</div>
-        <ul>${bullets.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
-      </article>
-    `;
+    return `<article class="job"><p class="pos">${escapeHtml(position || "Stanowisko")}</p><div class="meta">${escapeHtml(meta || "Firma | Daty")}</div><ul>${bullets.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul></article>`;
   }).join("");
 }
 
@@ -77,7 +72,7 @@ function sync() {
   $("vPhone").textContent = $("phone").value.trim();
   $("vEmail").textContent = $("email").value.trim();
   $("vAddress").textContent = $("address").value.trim();
-  $("vLinkedin").textContent = $("linkedin").value.trim();
+  $("vPortfolio").textContent = $("portfolio").value.trim();
 
   $("vSummary").textContent = $("summary").value.trim();
   $("vSkills").innerHTML = renderSkills($("skills").value);
@@ -87,17 +82,30 @@ function sync() {
 
   const family = $("fontFamily").value;
   const size = $("fontSize").value;
+  const lineHeight = $("lineHeight").value;
   document.documentElement.style.setProperty("--cv-font-family", `'${family}', system-ui, sans-serif`);
   document.documentElement.style.setProperty("--base-font-size", `${size}px`);
+  document.documentElement.style.setProperty("--base-line-height", lineHeight);
   $("fontSizeValue").textContent = `${size}px`;
+  $("lineHeightValue").textContent = lineHeight;
 
   document.documentElement.style.setProperty("--sidebar-solid", $("sidebarColor").value);
   document.documentElement.style.setProperty("--accent", $("accentColor").value);
   document.documentElement.style.setProperty("--rodo-bg", $("rodoBgColor").value);
   document.documentElement.style.setProperty("--rodo-text", $("rodoTextColor").value);
 
+  const posX = $("photoPosX").value;
+  const posY = $("photoPosY").value;
+  $("photoImg").style.objectPosition = `${posX}% ${posY}%`;
+  $("photoPosXValue").textContent = `${posX}%`;
+  $("photoPosYValue").textContent = `${posY}%`;
+
+  document.querySelectorAll("[data-icon]").forEach((icon) => {
+    icon.classList.toggle("hidden", !$("optIcons").checked);
+  });
+
   toggleElement("photoBox", $("optPhoto").checked);
-  toggleElement("linkedinRow", $("optLinkedin").checked);
+  toggleElement("portfolioRow", $("optPortfolio").checked);
   toggleElement("skillsSection", $("optSkills").checked);
   toggleElement("educationSection", $("optEducation").checked);
   toggleElement("summarySection", $("optSummary").checked);
@@ -126,5 +134,12 @@ $("removePhoto").addEventListener("click", () => {
   $("photoInput").value = "";
   setPhoto(null);
 });
+
+function printCv() {
+  window.print();
+}
+
+$("printBtn").addEventListener("click", printCv);
+$("pdfBtn").addEventListener("click", printCv);
 
 sync();

@@ -13,7 +13,11 @@
   <header class="topbar">
     <div>
       <h1>Mini Generator CV</h1>
-      <p>Edytuj treść na żywo, wybierz czcionkę, rozmiar i kolory.</p>
+      <p>Edytuj treść na żywo, wybierz czcionkę, rozmiar, interlinię, kolory i zdjęcie.</p>
+    </div>
+    <div class="topbar-actions">
+      <button id="printBtn" type="button">Drukuj</button>
+      <button id="pdfBtn" type="button">Eksport PDF</button>
     </div>
   </header>
 
@@ -33,6 +37,10 @@
           <label for="fontSize">Rozmiar bazowy: <span id="fontSizeValue">12.5px</span></label>
           <input id="fontSize" type="range" min="11" max="15" step="0.1" value="12.5" />
         </div>
+        <div class="field">
+          <label for="lineHeight">Wysokość tekstu (interlinia): <span id="lineHeightValue">1.45</span></label>
+          <input id="lineHeight" type="range" min="1.1" max="2" step="0.05" value="1.45" />
+        </div>
       </section>
 
       <section class="card form-grid">
@@ -46,7 +54,8 @@
       <section class="card options-grid">
         <h2>Opcje (ptaszki)</h2>
         <label class="check"><input id="optPhoto" type="checkbox" checked> Pokaż zdjęcie</label>
-        <label class="check"><input id="optLinkedin" type="checkbox" checked> Pokaż LinkedIn</label>
+        <label class="check"><input id="optIcons" type="checkbox" checked> Pokaż ikony przy kontakcie</label>
+        <label class="check"><input id="optPortfolio" type="checkbox" checked> Pokaż Portfolio</label>
         <label class="check"><input id="optSkills" type="checkbox" checked> Pokaż sekcję „Umiejętności”</label>
         <label class="check"><input id="optEducation" type="checkbox" checked> Pokaż sekcję „Wykształcenie”</label>
         <label class="check"><input id="optSummary" type="checkbox" checked> Pokaż sekcję „Podsumowanie zawodowe”</label>
@@ -58,6 +67,14 @@
         <div class="field">
           <label for="photoInput">Wgraj zdjęcie (JPG/PNG/WebP)</label>
           <input id="photoInput" type="file" accept="image/*" />
+        </div>
+        <div class="field">
+          <label for="photoPosX">Pozycja zdjęcia poziomo: <span id="photoPosXValue">50%</span></label>
+          <input id="photoPosX" type="range" min="0" max="100" step="1" value="50" />
+        </div>
+        <div class="field">
+          <label for="photoPosY">Pozycja zdjęcia pionowo: <span id="photoPosYValue">50%</span></label>
+          <input id="photoPosY" type="range" min="0" max="100" step="1" value="50" />
         </div>
         <button id="removePhoto" class="btn-secondary" type="button">Usuń zdjęcie</button>
       </section>
@@ -71,7 +88,7 @@
         <div class="field"><label for="phone">Telefon</label><input id="phone" value="023-456-7789"/></div>
         <div class="field"><label for="email">E-mail</label><input id="email" value="email@gmail.com"/></div>
         <div class="field"><label for="address">Adres</label><input id="address" value="Miasto, Województwo, Kraj"/></div>
-        <div class="field"><label for="linkedin">LinkedIn</label><input id="linkedin" value="linkedin/in/nazwa-uzytkownika"/></div>
+        <div class="field"><label for="portfolio">Portfolio</label><input id="portfolio" value="portfolio.com/twoj-profil"/></div>
 
         <div class="field span-2"><label for="summary">Podsumowanie zawodowe</label><textarea id="summary">To miejsce na krótkie przedstawienie Twojego doświadczenia, mocnych stron i najważniejszych osiągnięć zawodowych.</textarea></div>
 
@@ -112,10 +129,10 @@ Wkład w cele zespołu i organizacji.</textarea></div>
                 <h3 class="side-section-title">Kontakt</h3>
                 <div class="side-rule"></div>
                 <div class="contact">
-                  <div><div class="k">Telefon</div><div class="v" id="vPhone"></div></div>
-                  <div><div class="k">E-mail</div><div class="v" id="vEmail"></div></div>
-                  <div><div class="k">Adres</div><div class="v" id="vAddress"></div></div>
-                  <div id="linkedinRow"><div class="k">LinkedIn</div><div class="v" id="vLinkedin"></div></div>
+                  <div><div class="k"><span class="icon" data-icon>📞</span>Telefon</div><div class="v" id="vPhone"></div></div>
+                  <div><div class="k"><span class="icon" data-icon>✉️</span>E-mail</div><div class="v" id="vEmail"></div></div>
+                  <div><div class="k"><span class="icon" data-icon>📍</span>Adres</div><div class="v" id="vAddress"></div></div>
+                  <div id="portfolioRow"><div class="k"><span class="icon" data-icon>🌐</span>Portfolio</div><div class="v" id="vPortfolio"></div></div>
                 </div>
               </section>
 
