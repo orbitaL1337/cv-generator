@@ -16,6 +16,8 @@
       <p>Edytuj treść na żywo, wybierz czcionkę, rozmiar, interlinię, kolory i zdjęcie.</p>
     </div>
     <div class="topbar-actions">
+      <button id="themeDarkBtn" type="button">Motyw ciemny</button>
+      <button id="themeLightBtn" type="button">Motyw jasny</button>
       <button id="printBtn" type="button">Drukuj</button>
       <button id="pdfBtn" type="button">Eksport PDF</button>
     </div>
@@ -40,6 +42,14 @@
         <div class="field">
           <label for="lineHeight">Wysokość tekstu (interlinia): <span id="lineHeightValue">1.45</span></label>
           <input id="lineHeight" type="range" min="1.1" max="2" step="0.05" value="1.45" />
+        </div>
+        <div class="field">
+          <label for="leftOffset">Przesunięcie tekstu sekcji lewej (góra/dół): <span id="leftOffsetValue">0px</span></label>
+          <input id="leftOffset" type="range" min="-80" max="80" step="1" value="0" />
+        </div>
+        <div class="field">
+          <label for="rightOffset">Przesunięcie tekstu sekcji prawej (góra/dół): <span id="rightOffsetValue">0px</span></label>
+          <input id="rightOffset" type="range" min="-80" max="80" step="1" value="0" />
         </div>
       </section>
 

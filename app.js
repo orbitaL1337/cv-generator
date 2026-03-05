@@ -2,7 +2,7 @@ const $ = (id) => document.getElementById(id);
 
 const fields = [
   "firstName", "lastName", "role", "phone", "email", "address", "portfolio",
-  "summary", "skills", "education", "jobs", "rodo", "fontFamily", "fontSize", "lineHeight",
+  "summary", "skills", "education", "jobs", "rodo", "fontFamily", "fontSize", "lineHeight", "leftOffset", "rightOffset",
   "sidebarColor", "accentColor", "rodoBgColor", "rodoTextColor",
   "photoPosX", "photoPosY",
   "optPhoto", "optIcons", "optPortfolio", "optSkills", "optEducation", "optSummary", "optRodo"
@@ -83,11 +83,17 @@ function sync() {
   const family = $("fontFamily").value;
   const size = $("fontSize").value;
   const lineHeight = $("lineHeight").value;
+  const leftOffset = $("leftOffset").value;
+  const rightOffset = $("rightOffset").value;
   document.documentElement.style.setProperty("--cv-font-family", `'${family}', system-ui, sans-serif`);
   document.documentElement.style.setProperty("--base-font-size", `${size}px`);
   document.documentElement.style.setProperty("--base-line-height", lineHeight);
+  document.documentElement.style.setProperty("--left-offset", `${leftOffset}px`);
+  document.documentElement.style.setProperty("--right-offset", `${rightOffset}px`);
   $("fontSizeValue").textContent = `${size}px`;
   $("lineHeightValue").textContent = lineHeight;
+  $("leftOffsetValue").textContent = `${leftOffset}px`;
+  $("rightOffsetValue").textContent = `${rightOffset}px`;
 
   document.documentElement.style.setProperty("--sidebar-solid", $("sidebarColor").value);
   document.documentElement.style.setProperty("--accent", $("accentColor").value);
@@ -139,7 +145,32 @@ function printCv() {
   window.print();
 }
 
+function applyTheme(themeName) {
+  const isLight = themeName === "light";
+  const page = $("cvPage");
+  page.setAttribute("data-theme", isLight ? "light" : "dark");
+  document.body.setAttribute("data-ui-theme", isLight ? "light" : "dark");
+
+  if (isLight) {
+    $("sidebarColor").value = "#3b4256";
+    $("accentColor").value = "#7c3aed";
+    $("rodoBgColor").value = "#3a3a3a";
+    $("rodoTextColor").value = "#ffffff";
+  } else {
+    $("sidebarColor").value = "#111827";
+    $("accentColor").value = "#22d3ee";
+    $("rodoBgColor").value = "#111827";
+    $("rodoTextColor").value = "#f8fafc";
+  }
+
+  $("themeDarkBtn").classList.toggle("active", !isLight);
+  $("themeLightBtn").classList.toggle("active", isLight);
+  sync();
+}
+
 $("printBtn").addEventListener("click", printCv);
 $("pdfBtn").addEventListener("click", printCv);
+$("themeDarkBtn").addEventListener("click", () => applyTheme("dark"));
+$("themeLightBtn").addEventListener("click", () => applyTheme("light"));
 
-sync();
+applyTheme("dark");

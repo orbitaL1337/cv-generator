@@ -1,4 +1,4 @@
-Mini Generator CV
+Mini Generator CV — zaawansowany edytor
 
 Uruchomienie:
 1. Otwórz plik index.html w przeglądarce.
@@ -9,6 +9,9 @@ Funkcje:
 - pełny interfejs po polsku
 - live edycja treści CV
 - wybór czcionki, rozmiaru bazowego i interlinii (wysokości tekstu)
+- 2 suwaki przesuwania tekstu góra/dół (osobno sekcja lewa i prawa)
+- przełączanie motywu szablonu: ciemny (domyślny) / jasny
+- bardziej nowoczesna, „trendy” paleta kolorów
 - edycja kolorów (panel boczny, akcent, pasek RODO)
 - upload zdjęcia + usuwanie zdjęcia
 - pozycjonowanie zdjęcia (poziomo/pionowo) suwakami
