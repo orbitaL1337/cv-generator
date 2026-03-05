@@ -241,10 +241,48 @@ textarea { min-height: 90px; resize: vertical; }
 
 @media print {
   @page { size: A4; margin: 0; }
-  body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   .topbar, .editor { display: none !important; }
-  .layout { display: block; padding: 0; }
-  .preview-wrap { padding: 0; overflow: visible; }
-  .page { box-shadow: none; width: 210mm; height: 297mm; }
+  .layout {
+    display: block;
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .preview-wrap {
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  .page {
+    box-shadow: none !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    min-height: 297mm !important;
+    margin: 0 !important;
+    padding-bottom: var(--rodo-reserve) !important;
+    overflow: hidden !important;
+    border-radius: 0 !important;
+  }
+  .cv {
+    height: calc(297mm - var(--rodo-reserve)) !important;
+    grid-template-columns: 72mm 1fr !important;
+  }
+  .side-pad,
+  .main {
+    transform: none !important;
+  }
   .page, .page * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
