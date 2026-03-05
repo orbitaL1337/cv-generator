@@ -3,237 +3,156 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Generator CV – nowoczesne (PL)</title>
-
-  <!-- Nowoczesna czcionka z polskimi znakami -->
+  <title>Mini Generator CV</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css" />
 </head>
-
 <body>
-  <header>
-    <div class="title">
-      <h1>Generator CV (nowoczesne / ATS)</h1>
-      <p>Uzupełnij pola → podgląd po prawej → Drukuj/Zapisz do PDF. Wszystko działa lokalnie.</p>
-    </div>
-    <div class="actions">
-      <button id="themeToggle" type="button" aria-label="Przełącz na jasny motyw" title="Przełącz na jasny motyw" aria-pressed="false">
-        <span id="themeIcon" aria-hidden="true">🌙</span>
-      </button>
-      <button id="loadExample" type="button">Wstaw przykład</button>
-      <button id="saveJson" type="button">Zapisz JSON</button>
-      <label class="fileBtn" for="loadJson">Wczytaj JSON</label>
-      <input id="loadJson" type="file" accept="application/json" />
-      <button class="primary" id="printBtn" type="button">Drukuj / PDF</button>
+  <header class="topbar">
+    <div>
+      <h1>Mini Generator CV</h1>
+      <p>Edytuj treść na żywo, wybierz czcionkę, rozmiar i kolory.</p>
     </div>
   </header>
 
-  <div class="wrap">
-    <aside class="panel">
-      <h2>Szablon CV</h2>
-      <div class="field">
-        <label>Wybierz styl</label>
-        <select id="template">
-          <option value="linkedin">LinkedIn style</option>
-          <option value="minimal">Minimalist</option>
-          <option value="manager">Manager / Premium</option>
-        </select>
-      </div>
-
-      <h2>Zdjęcie</h2>
-      <div class="field">
-        <label>Wgraj zdjęcie (JPG/PNG/WebP)</label>
-        <input id="photoInput" type="file" accept="image/*" />
-        <div class="help">Możesz też przeciągnąć zdjęcie na podgląd CV (drag & drop).</div>
-        <div class="row-actions">
-          <button class="danger" id="removePhoto" type="button">Usuń zdjęcie</button>
-        </div>
-      </div>
-
-      <h2>Dane podstawowe</h2>
-      <div class="grid">
+  <div class="layout">
+    <aside class="editor">
+      <section class="card">
+        <h2>Typografia</h2>
         <div class="field">
-          <label>Imię</label>
-          <input id="firstName" placeholder="np. Aleksander" />
+          <label for="fontFamily">Czcionka</label>
+          <select id="fontFamily">
+            <option value="Inter">Inter</option>
+            <option value="Montserrat">Montserrat</option>
+            <option value="Open Sans">Open Sans</option>
+          </select>
         </div>
         <div class="field">
-          <label>Nazwisko</label>
-          <input id="lastName" placeholder="np. Nowak" />
-          <div class="help">W podglądzie imię i nazwisko będą rozdzielone <b>dwoma spacjami</b>.</div>
+          <label for="fontSize">Rozmiar bazowy: <span id="fontSizeValue">12.5px</span></label>
+          <input id="fontSize" type="range" min="11" max="15" step="0.1" value="12.5" />
         </div>
-      </div>
+      </section>
 
-      <div class="field">
-        <label>Stanowisko / rola</label>
-        <input id="role" placeholder="np. Spedytor Międzynarodowy" />
-      </div>
+      <section class="card form-grid">
+        <h2>Kolory</h2>
+        <div class="field"><label for="sidebarColor">Tło panelu bocznego</label><input id="sidebarColor" type="color" value="#2f3545"></div>
+        <div class="field"><label for="accentColor">Kolor akcentu</label><input id="accentColor" type="color" value="#4f46e5"></div>
+        <div class="field"><label for="rodoBgColor">Tło paska RODO</label><input id="rodoBgColor" type="color" value="#3a3a3a"></div>
+        <div class="field"><label for="rodoTextColor">Kolor tekstu RODO</label><input id="rodoTextColor" type="color" value="#ffffff"></div>
+      </section>
 
-      <div class="grid">
+      <section class="card options-grid">
+        <h2>Opcje (ptaszki)</h2>
+        <label class="check"><input id="optPhoto" type="checkbox" checked> Pokaż zdjęcie</label>
+        <label class="check"><input id="optLinkedin" type="checkbox" checked> Pokaż LinkedIn</label>
+        <label class="check"><input id="optSkills" type="checkbox" checked> Pokaż sekcję „Umiejętności”</label>
+        <label class="check"><input id="optEducation" type="checkbox" checked> Pokaż sekcję „Wykształcenie”</label>
+        <label class="check"><input id="optSummary" type="checkbox" checked> Pokaż sekcję „Podsumowanie zawodowe”</label>
+        <label class="check"><input id="optRodo" type="checkbox" checked> Pokaż klauzulę RODO</label>
+      </section>
+
+      <section class="card">
+        <h2>Zdjęcie</h2>
         <div class="field">
-          <label>Miasto</label>
-          <input id="city" placeholder="np. Kraków" />
+          <label for="photoInput">Wgraj zdjęcie (JPG/PNG/WebP)</label>
+          <input id="photoInput" type="file" accept="image/*" />
         </div>
-        <div class="field">
-          <label>Telefon</label>
-          <input id="phone" placeholder="np. +48 600 123 456" />
-        </div>
-      </div>
+        <button id="removePhoto" class="btn-secondary" type="button">Usuń zdjęcie</button>
+      </section>
 
-      <div class="field">
-        <label>Email</label>
-        <input id="email" placeholder="np. imie.nazwisko@email.com" />
-      </div>
-      <div class="field">
-        <label>LinkedIn (opcjonalnie)</label>
-        <input id="linkedin" placeholder="np. linkedin.com/in/..." />
-      </div>
+      <section class="card form-grid">
+        <h2>Treść CV</h2>
+        <div class="field"><label for="firstName">Imię</label><input id="firstName" value="EMILIA"/></div>
+        <div class="field"><label for="lastName">Nazwisko</label><input id="lastName" value="HAMILTON"/></div>
+        <div class="field span-2"><label for="role">Stanowisko</label><input id="role" value="Specjalistka ds. marketingu"/></div>
 
-      <h2>Profil</h2>
-      <div class="field">
-        <label>Profil zawodowy (3–4 zdania)</label>
-        <textarea id="summary" placeholder="Kim jesteś, w czym się specjalizujesz, co wnosisz i 1 sukces (liczby!)."></textarea>
-      </div>
+        <div class="field"><label for="phone">Telefon</label><input id="phone" value="023-456-7789"/></div>
+        <div class="field"><label for="email">E-mail</label><input id="email" value="email@gmail.com"/></div>
+        <div class="field"><label for="address">Adres</label><input id="address" value="Miasto, Województwo, Kraj"/></div>
+        <div class="field"><label for="linkedin">LinkedIn</label><input id="linkedin" value="linkedin/in/nazwa-uzytkownika"/></div>
 
-      <h2>Doświadczenie</h2>
-      <div class="field">
-        <label>Doświadczenie (format: jedna rola na blok)</label>
-        <textarea id="experience" placeholder="Senior Spedytor – Firma | 2022–obecnie
-- punkt 1
-- punkt 2
+        <div class="field span-2"><label for="summary">Podsumowanie zawodowe</label><textarea id="summary">To miejsce na krótkie przedstawienie Twojego doświadczenia, mocnych stron i najważniejszych osiągnięć zawodowych.</textarea></div>
 
-Spedytor – Firma | 2019–2022
-- punkt 1"></textarea>
-        <div class="help">Każdy blok oddziel pustą linią. Nagłówek: <b>Stanowisko – Firma | lata</b>. Punkty zaczynaj od „-”.</div>
-      </div>
+        <div class="field span-2"><label for="skills">Umiejętności (jedna pozycja na linię)</label><textarea id="skills">Komunikacja
+Adaptacja
+Przywództwo
+Rozwiązywanie problemów
+Kreatywność
+Zarządzanie czasem
+Myślenie krytyczne
+Praca zespołowa</textarea></div>
 
-      <h2>Umiejętności</h2>
-      <div class="field">
-        <label>Umiejętności (oddzielaj przecinkami)</label>
-        <input id="skills" placeholder="np. Trans.eu, Timocom, TMS, Negocjacje, Excel" />
-      </div>
+        <div class="field span-2"><label for="education">Wykształcenie (jeden wpis na linię)</label><textarea id="education">Nazwa kierunku — Nazwa uczelni | Miasto | 2018 – 2021
+Nazwa kierunku — Nazwa uczelni | Miasto | 2021 – 2023</textarea></div>
 
-      <h2>Narzędzia (opcjonalnie)</h2>
-      <div class="field">
-        <label>Narzędzia / systemy (oddzielaj przecinkami)</label>
-        <input id="tools" placeholder="np. Trans.eu, Timocom, TMS, GPS, SAP" />
-      </div>
+        <div class="field span-2"><label for="jobs">Doświadczenie zawodowe (bloki oddziel pustą linią)</label><textarea id="jobs">Stanowisko — Nazwa firmy | Miasto | 2022 – obecnie
+Opis głównych obowiązków i zakresu odpowiedzialności.
+Najważniejsze osiągnięcia i efekty pracy.
 
-      <h2>Certyfikaty (opcjonalnie)</h2>
-      <div class="field">
-        <label>Certyfikaty (po jednym wierszu)</label>
-        <textarea id="certs" placeholder="np. Incoterms 2020 – szkolenie, 2024"></textarea>
-      </div>
+Stanowisko — Nazwa firmy | Miasto | 2020 – 2022
+Najważniejsze zadania realizowane na stanowisku.
+Wkład w cele zespołu i organizacji.</textarea></div>
 
-      <h2>Wykształcenie</h2>
-      <div class="field">
-        <label>Wykształcenie (po jednym wierszu)</label>
-        <textarea id="education" placeholder="np. UEK – Logistyka (licencjat), 2019"></textarea>
-      </div>
-
-      <h2>Zainteresowania (opcjonalnie)</h2>
-      <div class="field">
-        <label>Zainteresowania (oddzielaj przecinkami)</label>
-        <input id="hobbies" placeholder="np. motoryzacja, geografia, analiza danych" />
-      </div>
-
-      <h2>Języki (opcjonalnie)</h2>
-      <div class="field">
-        <label>Języki (oddzielaj przecinkami)</label>
-        <input id="languages" placeholder="np. Polski (C2), Angielski (B2), Niemiecki (A2)" />
-      </div>
-
-      <div class="field">
-        <label>Klauzula RODO (opcjonalnie)</label>
-        <textarea id="consent" placeholder="Wyrażam zgodę na..."></textarea>
-      </div>
-
-      <div class="help">
-        Tip: jeśli drukujesz do PDF, w oknie drukowania ustaw „Brak marginesów” lub „Domyślne” (zależy od przeglądarki).
-      </div>
+        <div class="field span-2"><label for="rodo">Klauzula RODO</label><textarea id="rodo">Wyrażam zgodę na przetwarzanie moich danych osobowych zawartych w CV dla potrzeb niezbędnych do realizacji procesu rekrutacji zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO).</textarea></div>
+      </section>
     </aside>
 
-    <main class="preview" id="dropZone" aria-label="Podgląd CV (możesz tu upuścić zdjęcie)">
-      <div class="cv linkedin" id="cvRoot">
-        <div class="cv-header">
-          <div class="left-head">
-            <div class="avatar" id="avatar">
-              <span id="avatarFallback">AA</span>
-              <img id="avatarImg" alt="Zdjęcie" style="display:none;">
+    <main class="preview-wrap">
+      <div class="page" id="cvPage">
+        <div class="cv" id="cvRoot">
+          <aside class="sidebar">
+            <div class="photo" id="photoBox">
+              <img id="photoImg" alt="Zdjęcie kandydata" />
+              <span id="photoPlaceholder">Twoje zdjęcie</span>
             </div>
+            <div class="side-pad">
+              <section>
+                <h3 class="side-section-title">Kontakt</h3>
+                <div class="side-rule"></div>
+                <div class="contact">
+                  <div><div class="k">Telefon</div><div class="v" id="vPhone"></div></div>
+                  <div><div class="k">E-mail</div><div class="v" id="vEmail"></div></div>
+                  <div><div class="k">Adres</div><div class="v" id="vAddress"></div></div>
+                  <div id="linkedinRow"><div class="k">LinkedIn</div><div class="v" id="vLinkedin"></div></div>
+                </div>
+              </section>
 
-            <div class="cv-name">
-              <p class="cv-role" id="vRole">Spedytor Międzynarodowy</p>
-              <h3 id="vName">Aleksander&nbsp;&nbsp;Nowak</h3>
+              <section id="skillsSection">
+                <h3 class="side-section-title">Umiejętności</h3>
+                <div class="side-rule"></div>
+                <ul class="skills" id="vSkills"></ul>
+              </section>
+
+              <section id="educationSection">
+                <h3 class="side-section-title">Wykształcenie</h3>
+                <div class="side-rule"></div>
+                <div class="edu" id="vEducation"></div>
+              </section>
             </div>
-          </div>
+          </aside>
 
-          <div class="cv-contact">
-            <div class="pill" id="vContactLine">Kraków • +48 600 123 456</div>
-            <div class="pill" id="vEmail">aleksander.nowak@email.com</div>
-            <div class="pill" id="vLinkedIn">linkedin.com/in/aleksandernowak</div>
-          </div>
+          <section class="main">
+            <header class="hero">
+              <p class="first" id="vFirstName"></p>
+              <p class="last" id="vLastName"></p>
+              <div class="role" id="vRole"></div>
+            </header>
+
+            <section id="summarySection">
+              <div class="sec-head"><h2>Podsumowanie zawodowe</h2><div class="line"></div></div>
+              <p class="summary" id="vSummary"></p>
+            </section>
+
+            <section class="work">
+              <div class="sec-head"><h2>Doświadczenie zawodowe</h2><div class="line"></div></div>
+              <div class="jobs" id="vJobs"></div>
+            </section>
+          </section>
         </div>
 
-        <div class="two-col">
-          <div>
-            <div class="section card">
-              <h4>Profil</h4>
-              <p id="vSummary"></p>
-            </div>
-
-            <div class="section card">
-              <h4>Doświadczenie</h4>
-              <div id="vExperience"></div>
-            </div>
-
-            <div class="section card" id="certsCard">
-              <h4>Certyfikaty</h4>
-              <div id="vCerts"></div>
-            </div>
-
-            <div class="section card">
-              <h4>Wykształcenie</h4>
-              <div id="vEducation"></div>
-            </div>
-          </div>
-
-          <div>
-            <div class="section card">
-              <h4>Umiejętności</h4>
-              <div class="tags" id="vSkills"></div>
-            </div>
-
-            <div class="section card" id="toolsCard">
-              <h4>Narzędzia</h4>
-              <div class="tags" id="vTools"></div>
-            </div>
-
-            <div class="section card" id="hobbiesCard">
-              <h4>Zainteresowania</h4>
-              <div class="tags" id="vHobbies"></div>
-            </div>
-
-            <div class="section card" id="languagesCard">
-              <h4>Języki</h4>
-              <div class="tags" id="vLanguages"></div>
-            </div>
-
-            <div class="section card">
-              <h4>Dane</h4>
-              <p class="mono">
-                <span id="vCity"></span><br>
-                <span id="vPhone"></span>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="consent" id="vConsent"></div>
-
-        <div class="fitNote" id="fitNote" aria-live="polite"></div>
+        <div class="rodo-bar" id="vRodo"></div>
       </div>
     </main>
   </div>

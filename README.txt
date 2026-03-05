@@ -1,22 +1,16 @@
-# Generator CV (HTML) – 3 szablony + zdjęcie + JSON + auto-1-strona
+Mini Generator CV
 
-## Jak uruchomić
-1. Rozpakuj folder.
-2. Otwórz plik `index.html` w przeglądarce (Chrome/Edge/Firefox).
-3. Uzupełnij pola po lewej – podgląd aktualizuje się automatycznie.
+Uruchomienie:
+1. Otwórz plik index.html w przeglądarce.
+2. Edytuj pola po lewej stronie.
+3. Podgląd CV aktualizuje się na żywo.
 
-## Funkcje
-- 3 szablony: LinkedIn / Minimalist / Manager
-- Sekcja „Języki” (tagi, opcjonalna)
-- Wgrywanie zdjęcia (upload) + przeciągnij i upuść (drag & drop)
-- Zapis i wczytanie danych CV w pliku JSON
-- Drukowanie / zapis do PDF
-- Przełącznik motywu jasny/ciemny (z zapamiętywaniem wyboru)
-- Stały format A4 w podglądzie i wydruku
-- Automatyczne dopasowanie tekstu, żeby CV zmieściło się na 1 stronie A4 (w granicach rozsądku)
-
-## Wskazówka PDF
-W oknie drukowania wybierz:
-- "Zapisz jako PDF"
-- skala 100%
-- marginesy: domyślne lub brak (zależy od przeglądarki)
+Funkcje:
+- pełny interfejs po polsku
+- live edycja treści CV
+- wybór czcionki i rozmiaru bazowego
+- edycja kolorów (panel boczny, akcent, pasek RODO)
+- upload zdjęcia + usuwanie zdjęcia
+- responsywne skalowanie zdjęcia w podglądzie
+- opcje z checkboxami (ptaszkami) do pokazywania/ukrywania sekcji
+- responsywny układ (desktop + mobile)
