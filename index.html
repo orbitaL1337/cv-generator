@@ -2,239 +2,148 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Generator CV – nowoczesne (PL)</title>
-
-  <!-- Nowoczesna czcionka z polskimi znakami -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generator CV PL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./styles.css" />
 </head>
-
 <body>
-  <header>
-    <div class="title">
-      <h1>Generator CV (nowoczesne / ATS)</h1>
-      <p>Uzupełnij pola → podgląd po prawej → Drukuj/Zapisz do PDF. Wszystko działa lokalnie.</p>
-    </div>
-    <div class="actions">
-      <button id="themeToggle" type="button" aria-label="Przełącz na jasny motyw" title="Przełącz na jasny motyw" aria-pressed="false">
-        <span id="themeIcon" aria-hidden="true">🌙</span>
-      </button>
-      <button id="loadExample" type="button">Wstaw przykład</button>
-      <button id="saveJson" type="button">Zapisz JSON</button>
-      <label class="fileBtn" for="loadJson">Wczytaj JSON</label>
-      <input id="loadJson" type="file" accept="application/json" />
-      <button class="primary" id="printBtn" type="button">Drukuj / PDF</button>
-    </div>
+  <header class="topbar">
+    <h1>Generator CV (PL) — układ jak na podglądzie</h1>
+    <button id="printBtn" type="button">Drukuj / PDF</button>
   </header>
 
-  <div class="wrap">
-    <aside class="panel">
-      <h2>Szablon CV</h2>
-      <div class="field">
-        <label>Wybierz styl</label>
-        <select id="template">
-          <option value="linkedin">LinkedIn style</option>
-          <option value="minimal">Minimalist</option>
-          <option value="manager">Manager / Premium</option>
-        </select>
-      </div>
+  <div class="layout">
+    <aside class="editor">
+      <h2>Edytor tekstu i stylu</h2>
 
-      <h2>Zdjęcie</h2>
       <div class="field">
-        <label>Wgraj zdjęcie (JPG/PNG/WebP)</label>
+        <label for="photoInput">Zdjęcie</label>
         <input id="photoInput" type="file" accept="image/*" />
-        <div class="help">Możesz też przeciągnąć zdjęcie na podgląd CV (drag & drop).</div>
-        <div class="row-actions">
-          <button class="danger" id="removePhoto" type="button">Usuń zdjęcie</button>
-        </div>
       </div>
 
-      <h2>Dane podstawowe</h2>
-      <div class="grid">
-        <div class="field">
-          <label>Imię</label>
-          <input id="firstName" placeholder="np. Aleksander" />
+      <div class="field two">
+        <div>
+          <label for="firstName">Imię</label>
+          <input id="firstName" value="Emilia" />
         </div>
-        <div class="field">
-          <label>Nazwisko</label>
-          <input id="lastName" placeholder="np. Nowak" />
-          <div class="help">W podglądzie imię i nazwisko będą rozdzielone <b>dwoma spacjami</b>.</div>
+        <div>
+          <label for="lastName">Nazwisko</label>
+          <input id="lastName" value="Hamilton" />
         </div>
       </div>
 
       <div class="field">
-        <label>Stanowisko / rola</label>
-        <input id="role" placeholder="np. Spedytor Międzynarodowy" />
+        <label for="role">Stanowisko</label>
+        <input id="role" value="Specjalistka ds. marketingu" />
       </div>
 
-      <div class="grid">
-        <div class="field">
-          <label>Miasto</label>
-          <input id="city" placeholder="np. Kraków" />
+      <div class="field">
+        <label for="summary">Podsumowanie zawodowe</label>
+        <textarea id="summary">Tworzę skuteczne kampanie marketingowe i wspieram rozwój marki przez analizę danych oraz kreatywną komunikację. Łączę strategię z działaniem, dbając o mierzalne wyniki biznesowe.</textarea>
+      </div>
+
+      <div class="field">
+        <label for="contact">Kontakt (każda linia osobno)</label>
+        <textarea id="contact">Telefon: 123-456-7789
+E-mail: hello@email.com
+Adres: Kraków, Polska
+LinkedIn: linkedin.com/in/emilia-hamilton</textarea>
+      </div>
+
+      <div class="field">
+        <label for="skills">Umiejętności (każda linia osobno)</label>
+        <textarea id="skills">Komunikacja
+Adaptacja
+Przywództwo
+Rozwiązywanie problemów
+Kreatywność
+Zarządzanie czasem</textarea>
+      </div>
+
+      <div class="field">
+        <label for="education">Wykształcenie / Certyfikaty (każda linia osobno)</label>
+        <textarea id="education">Certyfikat Digital Marketing | Akademia X | 2023
+Licencjat, Zarządzanie | Uniwersytet Y | 2021</textarea>
+      </div>
+
+      <div class="field">
+        <label for="experience">Doświadczenie zawodowe (blokami, oddziel pustą linią)</label>
+        <textarea id="experience">Specjalistka ds. marketingu | Firma ABC | 2022 – obecnie
+- Prowadzenie kampanii digital i social media.
+- Wzrost konwersji o 25% w 12 miesięcy.
+
+Młodsza specjalistka marketingu | Firma DEF | 2020 – 2022
+- Wsparcie działań contentowych i mailingowych.
+- Analiza wyników kampanii i rekomendacje zmian.</textarea>
+      </div>
+
+      <h3>Parametry wyglądu</h3>
+      <div class="field two">
+        <div>
+          <label for="fontSize">Rozmiar czcionki (px)</label>
+          <input id="fontSize" type="range" min="13" max="19" value="15" />
         </div>
-        <div class="field">
-          <label>Telefon</label>
-          <input id="phone" placeholder="np. +48 600 123 456" />
+        <div>
+          <label for="nameSize">Rozmiar nagłówka (px)</label>
+          <input id="nameSize" type="range" min="30" max="56" value="48" />
         </div>
       </div>
 
-      <div class="field">
-        <label>Email</label>
-        <input id="email" placeholder="np. imie.nazwisko@email.com" />
-      </div>
-      <div class="field">
-        <label>LinkedIn (opcjonalnie)</label>
-        <input id="linkedin" placeholder="np. linkedin.com/in/..." />
-      </div>
-
-      <h2>Profil</h2>
-      <div class="field">
-        <label>Profil zawodowy (3–4 zdania)</label>
-        <textarea id="summary" placeholder="Kim jesteś, w czym się specjalizujesz, co wnosisz i 1 sukces (liczby!)."></textarea>
-      </div>
-
-      <h2>Doświadczenie</h2>
-      <div class="field">
-        <label>Doświadczenie (format: jedna rola na blok)</label>
-        <textarea id="experience" placeholder="Senior Spedytor – Firma | 2022–obecnie
-- punkt 1
-- punkt 2
-
-Spedytor – Firma | 2019–2022
-- punkt 1"></textarea>
-        <div class="help">Każdy blok oddziel pustą linią. Nagłówek: <b>Stanowisko – Firma | lata</b>. Punkty zaczynaj od „-”.</div>
-      </div>
-
-      <h2>Umiejętności</h2>
-      <div class="field">
-        <label>Umiejętności (oddzielaj przecinkami)</label>
-        <input id="skills" placeholder="np. Trans.eu, Timocom, TMS, Negocjacje, Excel" />
-      </div>
-
-      <h2>Narzędzia (opcjonalnie)</h2>
-      <div class="field">
-        <label>Narzędzia / systemy (oddzielaj przecinkami)</label>
-        <input id="tools" placeholder="np. Trans.eu, Timocom, TMS, GPS, SAP" />
-      </div>
-
-      <h2>Certyfikaty (opcjonalnie)</h2>
-      <div class="field">
-        <label>Certyfikaty (po jednym wierszu)</label>
-        <textarea id="certs" placeholder="np. Incoterms 2020 – szkolenie, 2024"></textarea>
-      </div>
-
-      <h2>Wykształcenie</h2>
-      <div class="field">
-        <label>Wykształcenie (po jednym wierszu)</label>
-        <textarea id="education" placeholder="np. UEK – Logistyka (licencjat), 2019"></textarea>
-      </div>
-
-      <h2>Zainteresowania (opcjonalnie)</h2>
-      <div class="field">
-        <label>Zainteresowania (oddzielaj przecinkami)</label>
-        <input id="hobbies" placeholder="np. motoryzacja, geografia, analiza danych" />
-      </div>
-
-      <h2>Języki (opcjonalnie)</h2>
-      <div class="field">
-        <label>Języki (oddzielaj przecinkami)</label>
-        <input id="languages" placeholder="np. Polski (C2), Angielski (B2), Niemiecki (A2)" />
-      </div>
-
-      <div class="field">
-        <label>Klauzula RODO (opcjonalnie)</label>
-        <textarea id="consent" placeholder="Wyrażam zgodę na..."></textarea>
-      </div>
-
-      <div class="help">
-        Tip: jeśli drukujesz do PDF, w oknie drukowania ustaw „Brak marginesów” lub „Domyślne” (zależy od przeglądarki).
+      <div class="field two">
+        <div>
+          <label for="sidebarColor">Kolor panelu bocznego</label>
+          <input id="sidebarColor" type="color" value="#2c2d30" />
+        </div>
+        <div>
+          <label for="accentColor">Kolor akcentu</label>
+          <input id="accentColor" type="color" value="#c7c7c7" />
+        </div>
       </div>
     </aside>
 
-    <main class="preview" id="dropZone" aria-label="Podgląd CV (możesz tu upuścić zdjęcie)">
-      <div class="cv linkedin" id="cvRoot">
-        <div class="cv-header">
-          <div class="left-head">
-            <div class="avatar" id="avatar">
-              <span id="avatarFallback">AA</span>
-              <img id="avatarImg" alt="Zdjęcie" style="display:none;">
-            </div>
-
-            <div class="cv-name">
-              <p class="cv-role" id="vRole">Spedytor Międzynarodowy</p>
-              <h3 id="vName">Aleksander&nbsp;&nbsp;Nowak</h3>
-            </div>
+    <main class="preview">
+      <article class="cv" id="cvRoot">
+        <section class="cv-sidebar">
+          <div class="photo-wrap">
+            <img id="cvPhoto" alt="Zdjęcie kandydata" />
           </div>
 
-          <div class="cv-contact">
-            <div class="pill" id="vContactLine">Kraków • +48 600 123 456</div>
-            <div class="pill" id="vEmail">aleksander.nowak@email.com</div>
-            <div class="pill" id="vLinkedIn">linkedin.com/in/aleksandernowak</div>
-          </div>
-        </div>
-
-        <div class="two-col">
-          <div>
-            <div class="section card">
-              <h4>Profil</h4>
-              <p id="vSummary"></p>
-            </div>
-
-            <div class="section card">
-              <h4>Doświadczenie</h4>
-              <div id="vExperience"></div>
-            </div>
-
-            <div class="section card" id="certsCard">
-              <h4>Certyfikaty</h4>
-              <div id="vCerts"></div>
-            </div>
-
-            <div class="section card">
-              <h4>Wykształcenie</h4>
-              <div id="vEducation"></div>
-            </div>
+          <div class="cv-section">
+            <h3>Kontakt</h3>
+            <div id="vContact"></div>
           </div>
 
-          <div>
-            <div class="section card">
-              <h4>Umiejętności</h4>
-              <div class="tags" id="vSkills"></div>
-            </div>
-
-            <div class="section card" id="toolsCard">
-              <h4>Narzędzia</h4>
-              <div class="tags" id="vTools"></div>
-            </div>
-
-            <div class="section card" id="hobbiesCard">
-              <h4>Zainteresowania</h4>
-              <div class="tags" id="vHobbies"></div>
-            </div>
-
-            <div class="section card" id="languagesCard">
-              <h4>Języki</h4>
-              <div class="tags" id="vLanguages"></div>
-            </div>
-
-            <div class="section card">
-              <h4>Dane</h4>
-              <p class="mono">
-                <span id="vCity"></span><br>
-                <span id="vPhone"></span>
-              </p>
-            </div>
+          <div class="cv-section">
+            <h3>Umiejętności</h3>
+            <ul id="vSkills"></ul>
           </div>
-        </div>
 
-        <div class="consent" id="vConsent"></div>
+          <div class="cv-section">
+            <h3>Edukacja</h3>
+            <ul id="vEducation"></ul>
+          </div>
+        </section>
 
-        <div class="fitNote" id="fitNote" aria-live="polite"></div>
-      </div>
+        <section class="cv-main">
+          <header class="cv-head">
+            <h2 id="vName">EMILIA HAMILTON</h2>
+            <p id="vRole">Specjalistka ds. marketingu</p>
+          </header>
+
+          <section class="cv-main-section">
+            <h3>Podsumowanie zawodowe</h3>
+            <p id="vSummary"></p>
+          </section>
+
+          <section class="cv-main-section">
+            <h3>Doświadczenie zawodowe</h3>
+            <div id="vExperience"></div>
+          </section>
+        </section>
+      </article>
     </main>
   </div>
 
